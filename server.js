@@ -2,22 +2,13 @@ var express = require('express');
 var app = express();
 var port = 3000;
 
-var middelware ={
-	requireAuthentication:function(req,res,next){
-		console.log('privete route hit!');
-		next();
-	},
-	logger:function(req,res,next){
-		console.log('Request :'+ new Date().toString() +' '+ req.method + req.originalUrl);
-		next();
-	}
-};
+var middelware = require('./middelware.js');
 // app.get('/',function(req,res){
 // 	res.send('Hello Express');
 // });
 //app.use(middelware.requireAuthentication);
 app.use(middelware.logger);
-app.get('/about',function(req,res){
+app.get('/about', middelware.requireAuthentication,function(req,res){
 	res.send('About us!');
 });
 app.use(express.static(__dirname+'/Public'));
@@ -25,3 +16,4 @@ app.use(express.static(__dirname+'/Public'));
 app.listen(port,function(){
 	console.log('Express Server Started! Port:'+port);
 });
+

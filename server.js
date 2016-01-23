@@ -2,13 +2,13 @@ var express = require('express');
 var app = express();
 var port = 3000;
 
-var middelware = require('./middelware.js');
+var middleware = require('./middleware.js');
 // app.get('/',function(req,res){
 // 	res.send('Hello Express');
 // });
 //app.use(middelware.requireAuthentication);
-app.use(middelware.logger);
-app.get('/about', middelware.requireAuthentication,function(req,res){
+app.use(middleware.logger);
+app.get('/about', middleware.requireAuthentication,function(req,res){
 	res.send('About us!');
 });
 app.use(express.static(__dirname+'/Public'));
